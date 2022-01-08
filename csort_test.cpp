@@ -1,5 +1,10 @@
-// sorttest.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+//============================================================================
+// csort_test.cpp
+// 	Author      : jtpeller
+// 	Date		: December 22, 2021
+// 	Description : Tests the csort library
+//============================================================================
+
 
 #include <iostream>
 #include <chrono>
@@ -13,13 +18,16 @@ void printArray(int* a, int count)
     std::cout << std::endl;
 }
 
-void generatearray(int* a, int count) {
-    for (int i = 0; i < count; i++) {
+void generatearray(int* a, int count)
+{
+    for (int i = 0; i < count; i++)
+    {
         a[i] = rand() % 100;        // # b/w 0 and 99
     }
 }
 
-void runsort(void(*f)(int*, int), std::string title, int n) {
+void runsort(void(*f)(int*, int), std::string title, int n)
+{
     // generate array to sort
     int* a = new int[n];
     generatearray(a, n);
@@ -31,7 +39,8 @@ void runsort(void(*f)(int*, int), std::string title, int n) {
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
     // ensure sort is correct
-    if (!csort::utils::is_sorted(a, n)) {
+    if (!csort::utils::is_sorted(a, n))
+    {
         std::cout << title << " is unsorted\n";
         printArray(a, n);
     }
@@ -40,7 +49,8 @@ void runsort(void(*f)(int*, int), std::string title, int n) {
     std::cout << title << " took " << duration.count() << " ns\n";
 }
 
-void run(int n) {
+void run(int n)
+{
     runsort(&csort::sort::bubble, "Bubble", n);
     runsort(&csort::sort::counting, "Counting", n);
     runsort(&csort::sort::insertion, "Insertion", n);
